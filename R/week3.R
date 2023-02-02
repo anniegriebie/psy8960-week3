@@ -2,7 +2,7 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Data Import and Cleaning
-raw_df<- read.csv("../data/week3.csv", header = TRUE)
+raw_df <- read.csv("../data/week3.csv", header = TRUE)
 raw_df$timeStart <- as.POSIXct(raw_df$timeStart, format = "%Y-%m-%d %H:%M:%S")
 raw_df$timeEnd <- as.POSIXct(raw_df$timeEnd, format = "%Y-%m-%d %H:%M:%S")
 clean_df <- raw_df[(raw_df$timeStart >= as.POSIXct("2017-07-01 00:00:00")), ] 
@@ -14,3 +14,5 @@ hist(as.numeric(clean_df$timeSpent))
 frequency_tables_list <-  lapply(clean_df[ , 5:14], table)
 lapply(frequency_tables_list, barplot)
 sum((clean_df$q1>=clean_df$q2) & (clean_df$q2 != clean_df$q3))
+for(i in frequency_tables_list) {
+  barplot(i)}
